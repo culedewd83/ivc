@@ -6,10 +6,14 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Stack;
+
 
 public class Main extends Application {
+
     private Stage mPrimaryStage;
     private static Main sInstance;
+    private Stack<BasePane> mStack;
 
     public static Main getInstance() {
         return sInstance;
@@ -22,19 +26,36 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         sInstance = this;
+        mStack = new Stack<BasePane>();
         mPrimaryStage = primaryStage;
         mPrimaryStage.setMinWidth(600);
         mPrimaryStage.setMinHeight(400);
         primaryStage.setTitle("IVC Reporting");
-        setPane(new StartPane());
+        setPane(new StartPane(), true, false);
         primaryStage.show();
     }
 
-    public void setPane(BasePane pane) {
+    public void setPane(BasePane pane, boolean addToStack, boolean clearStack) {
+        if (clearStack) {
+            mStack = new Stack<BasePane>();
+        }
+
+        if (addToStack) {
+            mStack.push(pane);
+        }
+
         Scene scene = new Scene(pane, getStageWidth(), getStageHeight());
         pane.setupScene(scene);
         mPrimaryStage.setScene(scene);
         pane.onPaneAppearing();
+    }
+
+    public void popPaneStack() {
+        if (mStack.size() < 2) {
+            return;
+        }
+        mStack.pop();
+        setPane(mStack.peek(), false, false);
     }
 
     public double getStageWidth() {
