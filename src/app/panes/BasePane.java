@@ -13,6 +13,26 @@ import java.io.IOException;
 public abstract class BasePane extends Pane {
 
     protected IBaseController mController;
+    protected String mKey = "";
+
+    public BasePane(String key) {
+        mKey = key;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/" + getFXmlFileName()));
+        mController = getController();
+        fxmlLoader.setController(mController);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
+        Pane root = fxmlLoader.getRoot();
+        root.prefWidthProperty().bind(this.widthProperty());
+        root.prefHeightProperty().bind(this.heightProperty());
+        this.getChildren().add(root);
+        mController.init();
+    }
 
     public BasePane() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/" + getFXmlFileName()));

@@ -27,7 +27,7 @@
                <children>
                   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Label text="Creating Profile..." textFill="WHITE">
+                        <Label text="Loading Profile..." textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -72,54 +72,26 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Pane fx:id="aNumberWarning" style="-fx-background-color: #ff0000;" visible="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0" />
-                        <TextField fx:id="aNumber" layoutX="169.0" layoutY="13.0" promptText="A-Number" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Label fx:id="aNumberLbl" layoutX="14.0" layoutY="6.0" text="A-Number" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Pane fx:id="emailWarning" style="-fx-background-color: #ff0000;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="4.0" />
-                        <TextField fx:id="email" promptText="Email Address" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                        <Pane fx:id="aNumberWarning" style="-fx-background-color: #ff0000;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="4.0" />
+                        <TextField fx:id="aNumber" promptText="A-Number" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="emailLbl" layoutX="8.0" layoutY="6.0" text="Email Address" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0">
+                        <Label fx:id="aNumberLbl" layoutX="8.0" layoutY="6.0" text="A-Number" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="6.0">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                     <children>
-                        <Pane fx:id="nameWarning" style="-fx-background-color: #ff0000;" visible="false" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="8.0" />
-                        <TextField fx:id="name" layoutX="76.0" layoutY="19.0" promptText="Name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
-                        <Label fx:id="nameLbl" layoutX="-2.0" layoutY="6.0" text="Name" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <Button fx:id="createBtn" defaultButton="true" layoutX="428.0" layoutY="19.0" mnemonicParsing="false" prefWidth="100.0" text="Create" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                        <Button fx:id="loadBtn" defaultButton="true" layoutX="428.0" layoutY="19.0" mnemonicParsing="false" prefWidth="100.0" text="Load" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                            <font>
                               <Font size="18.0" />
                            </font>

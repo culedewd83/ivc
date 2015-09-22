@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.Main;
 import app.panes.CreateProfilePane;
+import app.panes.LoadProfilePane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class StartController implements IBaseController {
     }
 
     private void loadButtonClicked() {
-
+        Main.getInstance().setPane(new LoadProfilePane(), true, false);
     }
 
     private void createButtonClicked() {

@@ -1,10 +1,12 @@
 package app;
 
+import app.models.Profile;
 import app.panes.BasePane;
 import app.panes.StartPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.util.Stack;
 
@@ -13,7 +15,8 @@ public class Main extends Application {
 
     private Stage mPrimaryStage;
     private static Main sInstance;
-    private Stack<BasePane> mStack;
+    private Stack<Scene> mStack;
+    private Profile mProfile;
 
     public static Main getInstance() {
         return sInstance;
@@ -24,9 +27,10 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+
         sInstance = this;
-        mStack = new Stack<BasePane>();
+        mStack = new Stack<Scene>();
         mPrimaryStage = primaryStage;
         mPrimaryStage.setMinWidth(600);
         mPrimaryStage.setMinHeight(400);
@@ -37,15 +41,14 @@ public class Main extends Application {
 
     public void setPane(BasePane pane, boolean addToStack, boolean clearStack) {
         if (clearStack) {
-            mStack = new Stack<BasePane>();
-        }
-
-        if (addToStack) {
-            mStack.push(pane);
+            mStack = new Stack<Scene>();
         }
 
         Scene scene = new Scene(pane, getStageWidth(), getStageHeight());
         pane.setupScene(scene);
+        if (addToStack) {
+            mStack.push(scene);
+        }
         mPrimaryStage.setScene(scene);
         pane.onPaneAppearing();
     }
@@ -55,7 +58,7 @@ public class Main extends Application {
             return;
         }
         mStack.pop();
-        setPane(mStack.peek(), false, false);
+        mPrimaryStage.setScene(mStack.peek());
     }
 
     public double getStageWidth() {
@@ -74,5 +77,13 @@ public class Main extends Application {
             return 400.0;
         }
         return mPrimaryStage.getScene().getHeight();
+    }
+
+    public void setProfile(Profile profile) {
+        mProfile = profile;
+    }
+
+    public Profile getProfile() {
+        return mProfile;
     }
 }
