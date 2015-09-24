@@ -2,8 +2,6 @@ package app.controllers;
 
 import app.Main;
 import app.models.ReportTemplate;
-import app.models.TemplateGroup;
-import app.panes.GroupPane;
 import app.panes.StartPane;
 import app.rest.BasicResponse;
 import app.rest.IResponse;
@@ -19,13 +17,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * Created by jesse on 9/21/15.
+ * Created by jesse on 9/23/15.
  */
-public class GroupListController implements IBaseController, IResponse {
+public class TemplateListController implements IBaseController, IResponse {
 
     @FXML
     Label greetingLbl;
@@ -35,6 +32,9 @@ public class GroupListController implements IBaseController, IResponse {
 
     @FXML
     ListView groupListView;
+
+    @FXML
+    Button backBtn;
 
     @FXML
     Button deleteBtn;
@@ -53,7 +53,7 @@ public class GroupListController implements IBaseController, IResponse {
 
     boolean isDelete = false;
     boolean isNew = false;
-    TemplateGroup deleteGroup;
+    ReportTemplate deleteTemplate;
     int deleteIndex;
 
     @Override
@@ -72,10 +72,17 @@ public class GroupListController implements IBaseController, IResponse {
             }
         });
 
+        backBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.getInstance().popPaneStack();
+            }
+        });
+
         deleteBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                deleteGroup();
+                deleteTemplate();
             }
         });
 
@@ -84,8 +91,9 @@ public class GroupListController implements IBaseController, IResponse {
             public void handle(ActionEvent event) {
                 int index = groupListView.getSelectionModel().getSelectedIndex();
                 if (index >= 0) {
-                    Main.getInstance().setGroupIndex(index);
-                    Main.getInstance().setPane(new GroupPane(), true, false);
+                    Main.getInstance().setTemplateIndex(index);
+
+                    // TODO: Move on to template pane
                 }
             }
         });
@@ -102,6 +110,7 @@ public class GroupListController implements IBaseController, IResponse {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){
                     Main.getInstance().setGroupIndex(-1);
+                    Main.getInstance().setTemplateIndex(-1);
                     Main.getInstance().setProfile(null);
                     Main.getInstance().setPane(new StartPane(), true, true);
                 } else {
@@ -113,7 +122,7 @@ public class GroupListController implements IBaseController, IResponse {
         newBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                createNewGroup();
+                createNewTemplate();
             }
         });
 
@@ -125,29 +134,31 @@ public class GroupListController implements IBaseController, IResponse {
     public void setupList() {
         ObservableList<String> items = FXCollections.observableArrayList();
 
-        for (TemplateGroup group : Main.getInstance().getProfile().groups) {
-            items.add(group.groupName);
+        for (ReportTemplate template : Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates) {
+            items.add(template.name);
         }
 
         groupListView.setItems(items);
     }
 
-    private void deleteGroup() {
-        int index = groupListView.getSelectionModel().getSelectedIndex();
-        if (index >= 0) {
+    private void deleteTemplate() {
+        int groupIndex = Main.getInstance().getGroupIndex();
+        int templateIndex = groupListView.getSelectionModel().getSelectedIndex();
+        if (templateIndex >= 0) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Confirmation");
-            alert.setHeaderText("Delete Group");
-            alert.setContentText("Are you sure you want to delete " + Main.getInstance().getProfile().groups.get(index).groupName + "?");
+            alert.setHeaderText("Delete Report Template");
+            alert.setContentText("Are you sure you want to delete "
+                    + Main.getInstance().getProfile().groups.get(groupIndex).templates.get(templateIndex).name + "?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                deleteIndex = index;
-                groupListView.getItems().remove(index);
+                deleteIndex = templateIndex;
+                groupListView.getItems().remove(templateIndex);
                 groupListView.getSelectionModel().select(-1);
-                deleteGroup = Main.getInstance().getProfile().groups.get(index);
-                Main.getInstance().getProfile().groups.remove(index);
+                deleteTemplate = Main.getInstance().getProfile().groups.get(groupIndex).templates.get(templateIndex);
+                Main.getInstance().getProfile().groups.get(groupIndex).templates.remove(templateIndex);
                 showBusyWheel("Deleting Group...");
                 isDelete = true;
                 SaveProfileRequest.saveProfile(Main.getInstance().getProfile(), this);
@@ -157,23 +168,19 @@ public class GroupListController implements IBaseController, IResponse {
         }
     }
 
-    private void createNewGroup() {
-        showBusyWheel("Creating Group...");
+    private void createNewTemplate() {
+        showBusyWheel("Creating Template...");
         isNew = true;
 
-        TemplateGroup group = new TemplateGroup();
-        group.templates = new ArrayList<ReportTemplate>();
+        ReportTemplate template = new ReportTemplate();
 
         int num = 1;
-        String name = "Group 1";
+        String name = "Report 1";
         while (containsName(name)) {
             num++;
-            name = "Group " + num;
+            name = "Report " + num;
         }
-        group.groupName = name;
-
-        ReportTemplate template = new ReportTemplate();
-        template.name = "Report 1";
+        template.name = name;
         template.course = "Course #";
         template.room = "RM #";
         template.origin = "Brigham City";
@@ -183,17 +190,20 @@ public class GroupListController implements IBaseController, IResponse {
         template.assignmentsQuizzesExams = "None";
         template.facilitiesIssues = "None";
         template.comments = "None";
-        group.templates.add(template);
 
-        Main.getInstance().getProfile().groups.add(group);
-        Main.getInstance().setGroupIndex(Main.getInstance().getProfile().groups.size() - 1);
+        Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(template);
+        Main.getInstance().setTemplateIndex(Main.getInstance()
+                .getProfile()
+                .groups
+                .get(Main.getInstance().getGroupIndex())
+                .templates.size() - 1);
 
         SaveProfileRequest.saveProfile(Main.getInstance().getProfile(), this);
     }
 
     private boolean containsName(String name) {
-        for (TemplateGroup group : Main.getInstance().getProfile().groups) {
-            if (group.groupName.equals(name)) {
+        for (ReportTemplate template : Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates) {
+            if (template.name.equals(name)) {
                 return true;
             }
         }
@@ -209,7 +219,9 @@ public class GroupListController implements IBaseController, IResponse {
                     if (isNew) {
                         isNew = false;
                         hideBusyWheel();
-                        Main.getInstance().setPane(new GroupPane(), true, false);
+
+                        // TODO: Move on to template pane
+
                     } else if (isDelete) {
                         isDelete = false;
                         hideBusyWheel();
@@ -222,10 +234,10 @@ public class GroupListController implements IBaseController, IResponse {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Main.getInstance().getProfile().groups.remove(Main.getInstance().getGroupIndex());
+                        Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.remove(deleteIndex);
                         setupList();
                         hideBusyWheel();
-                        showAlert("Create Error", "An error occurred while creating group");
+                        showAlert("Create Error", "An error occurred while creating report template");
                     }
                 });
             } else if (isDelete) {
@@ -234,13 +246,13 @@ public class GroupListController implements IBaseController, IResponse {
                     @Override
                     public void run() {
                         if (deleteIndex >= Main.getInstance().getProfile().groups.size()) {
-                            Main.getInstance().getProfile().groups.add(deleteGroup);
+                            Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(deleteTemplate);
                         } else {
-                            Main.getInstance().getProfile().groups.add(deleteIndex, deleteGroup);
+                            Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(deleteIndex, deleteTemplate);
                         }
                         setupList();
                         hideBusyWheel();
-                        showAlert("Delete Error", "An error occurred while deleting group");
+                        showAlert("Delete Error", "An error occurred while deleting report template");
                     }
                 });
             }

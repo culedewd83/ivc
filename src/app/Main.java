@@ -17,6 +17,7 @@ public class Main extends Application {
     private Stack<Scene> mStack;
     private Profile mProfile;
     private int mGroupIndex;
+    private int mTemplateIndex;
 
     public static Main getInstance() {
         return sInstance;
@@ -89,10 +90,19 @@ public class Main extends Application {
     }
 
     public void setGroupIndex(int index) {
+        System.out.println("Group Index - old: " + mGroupIndex + "  new: " + index);
         mGroupIndex = index;
     }
 
     public int getGroupIndex() {
         return mGroupIndex;
+    }
+
+    public void setTemplateIndex(int index) {
+        mTemplateIndex = index;
+    }
+
+    public int getTemplateIndex() {
+        return mTemplateIndex;
     }
 }

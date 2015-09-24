@@ -3,6 +3,7 @@ package app.controllers;
 import app.Main;
 import app.models.TemplateGroup;
 import app.panes.StartPane;
+import app.panes.TemplateListPane;
 import app.rest.BasicResponse;
 import app.rest.IResponse;
 import app.rest.SaveProfileRequest;
@@ -199,7 +200,7 @@ public class GroupController implements IBaseController, IResponse {
     }
 
     private void editBtnClicked() {
-
+        Main.getInstance().setPane(new TemplateListPane(), true, false);
     }
 
     private void saveBtnClicked() {
