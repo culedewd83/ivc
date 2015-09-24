@@ -16,4 +16,10 @@ public class GroupListPane extends BasePane {
     IBaseController getController() {
         return new GroupListController();
     }
+
+    @Override
+    public void onPaneAppearing() {
+        ((GroupListController)mController).setupList();
+    }
+
 }

@@ -6,7 +6,6 @@ import app.panes.StartPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.util.Stack;
 
@@ -17,6 +16,7 @@ public class Main extends Application {
     private static Main sInstance;
     private Stack<Scene> mStack;
     private Profile mProfile;
+    private int mGroupIndex;
 
     public static Main getInstance() {
         return sInstance;
@@ -59,6 +59,7 @@ public class Main extends Application {
         }
         mStack.pop();
         mPrimaryStage.setScene(mStack.peek());
+        ((BasePane)mStack.peek().getRoot()).onPaneAppearing();
     }
 
     public double getStageWidth() {
@@ -85,5 +86,13 @@ public class Main extends Application {
 
     public Profile getProfile() {
         return mProfile;
+    }
+
+    public void setGroupIndex(int index) {
+        mGroupIndex = index;
+    }
+
+    public int getGroupIndex() {
+        return mGroupIndex;
     }
 }

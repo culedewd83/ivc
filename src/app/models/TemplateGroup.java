@@ -7,5 +7,5 @@ import java.util.List;
  */
 public class TemplateGroup {
     public String groupName;
-    List<ReportTemplate> templates;
+    public List<ReportTemplate> templates;
 }

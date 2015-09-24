@@ -9,5 +9,5 @@ public class Profile {
     public String aNumber;
     public String email;
     public String name;
-    List<TemplateGroup> groups;
+    public List<TemplateGroup> groups;
 }
