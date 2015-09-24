@@ -27,7 +27,7 @@
                <children>
                   <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="busyLbl" text="Creating Profile..." textFill="WHITE">
+                        <Label fx:id="busyLbl" text="Creating Group..." textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
@@ -10,6 +11,38 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #003389;" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <AnchorPane fx:id="busyPane" opacity="0.6" style="-fx-background-color: #000000;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" prefWidth="240.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="120.0" minHeight="120.0" prefHeight="120.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <children>
+                        <Label fx:id="busyLbl" text="Saving..." textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <ProgressIndicator prefHeight="50.0" prefWidth="50.0">
+                           <VBox.margin>
+                              <Insets top="12.0" />
+                           </VBox.margin>
+                        </ProgressIndicator>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="44.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@usu_logo.png" />
