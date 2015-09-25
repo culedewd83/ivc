@@ -246,12 +246,14 @@ public class GroupController implements IBaseController, IResponse {
         String name = groupName.getText().trim();
         groupName.setText(name);
 
+        int i = 0;
         for (TemplateGroup group : Main.getInstance().getProfile().groups) {
-            if (group.groupName.equals(name)) {
+            if (i != Main.getInstance().getGroupIndex() && group.groupName.equals(name)) {
                 hideBusyWheel();
                 showNameWarning("Group Name Already Exists");
                 return;
             }
+            i++;
         }
 
         if (name.length() > 0) {

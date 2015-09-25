@@ -3,6 +3,7 @@ package app.controllers;
 import app.Main;
 import app.models.ReportTemplate;
 import app.panes.StartPane;
+import app.panes.TemplatePane;
 import app.rest.BasicResponse;
 import app.rest.IResponse;
 import app.rest.SaveProfileRequest;
@@ -92,8 +93,7 @@ public class TemplateListController implements IBaseController, IResponse {
                 int index = groupListView.getSelectionModel().getSelectedIndex();
                 if (index >= 0) {
                     Main.getInstance().setTemplateIndex(index);
-
-                    // TODO: Move on to template pane
+                    Main.getInstance().setPane(new TemplatePane(), true, false);
                 }
             }
         });
@@ -220,9 +220,7 @@ public class TemplateListController implements IBaseController, IResponse {
                     if (isNew) {
                         isNew = false;
                         hideBusyWheel();
-
-                        // TODO: Move on to template pane
-
+                        Main.getInstance().setPane(new TemplatePane(), true, false);
                     } else if (isDelete) {
                         isDelete = false;
                         hideBusyWheel();

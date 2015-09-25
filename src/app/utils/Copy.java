@@ -31,4 +31,19 @@ public class Copy {
         return result;
     }
 
+    public static ReportTemplate copyTemplate(ReportTemplate template) {
+        ReportTemplate result = new ReportTemplate();
+        result.assignmentsQuizzesExams = "" + template.assignmentsQuizzesExams;
+        result.cancellations = "" + template.cancellations;
+        result.comments = "" + template.comments;
+        result.course = "" + template.course;
+        result.facilitatorPresent = "" + template.facilitatorPresent;
+        result.facilitiesIssues = "" + template.facilitiesIssues;
+        result.name = "" + template.name;
+        result.origin = "" + template.origin;
+        result.room = "" + template.room;
+        result.techIssues = "" + template.techIssues;
+        return result;
+    }
+
 }
