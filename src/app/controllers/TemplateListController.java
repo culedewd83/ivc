@@ -197,6 +197,7 @@ public class TemplateListController implements IBaseController, IResponse {
                 .groups
                 .get(Main.getInstance().getGroupIndex())
                 .templates.size() - 1);
+        deleteIndex = Main.getInstance().getTemplateIndex();
 
         SaveProfileRequest.saveProfile(Main.getInstance().getProfile(), this);
     }
@@ -245,7 +246,7 @@ public class TemplateListController implements IBaseController, IResponse {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        if (deleteIndex >= Main.getInstance().getProfile().groups.size()) {
+                        if (deleteIndex >= Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.size()) {
                             Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(deleteTemplate);
                         } else {
                             Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(deleteIndex, deleteTemplate);
