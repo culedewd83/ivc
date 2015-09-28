@@ -18,23 +18,14 @@ public class TextEncryptor {
 
     private static final String KEY_FILE = "/resources/key.txt";
     private BasicTextEncryptor textEncryptor;
-    private String key;
+    private Key key;
 
     private TextEncryptor() {
 
-        File f = new File(getClass().getResource(KEY_FILE).getPath());
-        if(f.exists() && !f.isDirectory()) {
-            try {
-                Key k = JsonHelper.getInstance().json.fromJson(new FileReader(f), Key.class);
-                key = k.key;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
-        }
-
+        String json = ResourceLoader.getResource(KEY_FILE);
+        key = JsonHelper.getInstance().json.fromJson(json, Key.class);
         textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(key);
+        textEncryptor.setPassword(key.key);
     }
 
     public static String encrypt (String str) {
