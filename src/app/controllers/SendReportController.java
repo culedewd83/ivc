@@ -78,6 +78,12 @@ public class SendReportController implements IBaseController {
     @FXML
     TextField comments;
 
+    @FXML
+    TextField instructor;
+
+    @FXML
+    TextField time;
+
     private int mGroupIndex;
     private int mTemplateIndex = 0;
     private List<ReportTemplate> mTemplates;
@@ -144,6 +150,8 @@ public class SendReportController implements IBaseController {
         origin.setText(mTemplates.get(mTemplateIndex).origin);
         room.setText(mTemplates.get(mTemplateIndex).room);
         techIssues.setText(mTemplates.get(mTemplateIndex).techIssues);
+        instructor.setText(mTemplates.get(mTemplateIndex).instructor);
+        time.setText(mTemplates.get(mTemplateIndex).time);
     }
 
     private void logoutBtnClicked() {
@@ -271,6 +279,8 @@ public class SendReportController implements IBaseController {
         for (ReportTemplate report : mTemplates) {
             sb.append("Class: ").append(report.course).append("\n");
             sb.append("Room #: ").append(report.room).append("\n");
+            sb.append("Instructor: ").append(report.instructor).append("\n");
+            sb.append("Meeting Time: ").append(report.time).append("\n");
             sb.append("Originates at: ").append(report.origin).append("\n");
             sb.append("Facilitator Present: ").append(report.facilitatorPresent).append("\n");
             sb.append("Tech Issues: ").append(report.techIssues).append("\n");
@@ -297,6 +307,8 @@ public class SendReportController implements IBaseController {
         origin.setText(origin.getText().trim());
         room.setText(room.getText().trim());
         techIssues.setText(techIssues.getText().trim());
+        instructor.setText(instructor.getText().trim());
+        time.setText(time.getText().trim());
     }
 
 
@@ -312,6 +324,8 @@ public class SendReportController implements IBaseController {
         result.origin = origin.getText();
         result.room = room.getText();
         result.techIssues = techIssues.getText();
+        result.instructor = instructor.getText();
+        result.time = time.getText();
         return result;
     }
 
@@ -320,26 +334,6 @@ public class SendReportController implements IBaseController {
         cancelBtn.setDisable(true);
         backBtn.setDisable(true);
         nextBtn.setDisable(true);
-
-        assignments.setEditable(true);
-        cancellations.setEditable(true);
-        comments.setEditable(true);
-        className.setEditable(true);
-        facilitatorPresent.setEditable(true);
-        facilitiesIssues.setEditable(true);
-        name.setEditable(true);
-        origin.setEditable(true);
-        room.setEditable(true);
-        techIssues.setEditable(true);
-
-        busyPane.setVisible(true);
-    }
-
-    private void hideBusyWheel() {
-        logoutBtn.setDisable(false);
-        cancelBtn.setDisable(false);
-        backBtn.setDisable(mTemplateIndex != 0);
-        nextBtn.setDisable(false);
 
         assignments.setEditable(false);
         cancellations.setEditable(false);
@@ -351,6 +345,30 @@ public class SendReportController implements IBaseController {
         origin.setEditable(false);
         room.setEditable(false);
         techIssues.setEditable(false);
+        instructor.setEditable(false);
+        time.setEditable(false);
+
+        busyPane.setVisible(true);
+    }
+
+    private void hideBusyWheel() {
+        logoutBtn.setDisable(false);
+        cancelBtn.setDisable(false);
+        backBtn.setDisable(mTemplateIndex != 0);
+        nextBtn.setDisable(false);
+
+        assignments.setEditable(true);
+        cancellations.setEditable(true);
+        comments.setEditable(true);
+        className.setEditable(true);
+        facilitatorPresent.setEditable(true);
+        facilitiesIssues.setEditable(true);
+        name.setEditable(true);
+        origin.setEditable(true);
+        room.setEditable(true);
+        techIssues.setEditable(true);
+        instructor.setEditable(true);
+        time.setEditable(true);
 
         busyPane.setVisible(false);
     }

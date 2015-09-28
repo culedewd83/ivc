@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import javax.xml.soap.Text;
 import java.util.Optional;
 
 
@@ -76,6 +77,12 @@ public class TemplateController implements IBaseController, IResponse {
     @FXML
     TextField comments;
 
+    @FXML
+    TextField instructor;
+
+    @FXML
+    TextField time;
+
 
     private ReportTemplate mTemplate;
     private ReportTemplate oldTemplate;
@@ -113,6 +120,8 @@ public class TemplateController implements IBaseController, IResponse {
         origin.setText(mTemplate.origin);
         room.setText(mTemplate.room);
         techIssues.setText(mTemplate.techIssues);
+        instructor.setText(mTemplate.instructor);
+        time.setText(mTemplate.time);
 
         logoutBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -225,6 +234,24 @@ public class TemplateController implements IBaseController, IResponse {
             }
         });
 
+        instructor.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                needSave = true;
+                saveBtn.setDisable(false);
+            }
+        });
+
+        time.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                needSave = true;
+                saveBtn.setDisable(false);
+            }
+        });
+
         busyPane.toFront();
     }
 
@@ -318,6 +345,8 @@ public class TemplateController implements IBaseController, IResponse {
         origin.setText(origin.getText().trim());
         room.setText(room.getText().trim());
         techIssues.setText(techIssues.getText().trim());
+        instructor.setText(instructor.getText().trim());
+        time.setText(time.getText().trim());
     }
 
     private void saveTemplate() {
@@ -378,6 +407,8 @@ public class TemplateController implements IBaseController, IResponse {
         result.origin = origin.getText();
         result.room = room.getText();
         result.techIssues = techIssues.getText();
+        result.instructor = instructor.getText();
+        result.time = time.getText();
         return result;
     }
 
@@ -386,16 +417,18 @@ public class TemplateController implements IBaseController, IResponse {
         backBtn.setDisable(true);
         saveBtn.setDisable(true);
 
-        assignments.setEditable(true);
-        cancellations.setEditable(true);
-        comments.setEditable(true);
-        className.setEditable(true);
-        facilitatorPresent.setEditable(true);
-        facilitiesIssues.setEditable(true);
-        name.setEditable(true);
-        origin.setEditable(true);
-        room.setEditable(true);
-        techIssues.setEditable(true);
+        assignments.setEditable(false);
+        cancellations.setEditable(false);
+        comments.setEditable(false);
+        className.setEditable(false);
+        facilitatorPresent.setEditable(false);
+        facilitiesIssues.setEditable(false);
+        name.setEditable(false);
+        origin.setEditable(false);
+        room.setEditable(false);
+        techIssues.setEditable(false);
+        instructor.setEditable(false);
+        time.setEditable(false);
 
         busyPane.setVisible(true);
     }
@@ -409,16 +442,18 @@ public class TemplateController implements IBaseController, IResponse {
         backBtn.setDisable(false);
         saveBtn.setDisable(!needSave);
 
-        assignments.setEditable(false);
-        cancellations.setEditable(false);
-        comments.setEditable(false);
-        className.setEditable(false);
-        facilitatorPresent.setEditable(false);
-        facilitiesIssues.setEditable(false);
-        name.setEditable(false);
-        origin.setEditable(false);
-        room.setEditable(false);
-        techIssues.setEditable(false);
+        assignments.setEditable(true);
+        cancellations.setEditable(true);
+        comments.setEditable(true);
+        className.setEditable(true);
+        facilitatorPresent.setEditable(true);
+        facilitiesIssues.setEditable(true);
+        name.setEditable(true);
+        origin.setEditable(true);
+        room.setEditable(true);
+        techIssues.setEditable(true);
+        instructor.setEditable(true);
+        time.setEditable(true);
 
         busyPane.setVisible(false);
     }

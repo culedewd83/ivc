@@ -15,18 +15,7 @@ public class Copy {
         result.groupName = "" + group.groupName;
         result.templates = new ArrayList<ReportTemplate>();
         for (ReportTemplate template : group.templates) {
-            ReportTemplate tCopy = new ReportTemplate();
-            tCopy.assignmentsQuizzesExams = "" + template.assignmentsQuizzesExams;
-            tCopy.cancellations = "" + template.cancellations;
-            tCopy.comments = "" + template.comments;
-            tCopy.course = "" + template.course;
-            tCopy.facilitatorPresent = "" + template.facilitatorPresent;
-            tCopy.facilitiesIssues = "" + template.facilitiesIssues;
-            tCopy.name = "" + template.name;
-            tCopy.origin = "" + template.origin;
-            tCopy.room = "" + template.room;
-            tCopy.techIssues = "" + template.techIssues;
-            result.templates.add(tCopy);
+            result.templates.add(copyTemplate(template));
         }
         return result;
     }
@@ -43,6 +32,8 @@ public class Copy {
         result.origin = "" + template.origin;
         result.room = "" + template.room;
         result.techIssues = "" + template.techIssues;
+        result.instructor = "" + template.instructor;
+        result.time = "" + template.time;
         return result;
     }
 

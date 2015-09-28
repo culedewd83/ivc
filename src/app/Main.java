@@ -35,8 +35,8 @@ public class Main extends Application {
         sInstance = this;
         mStack = new Stack<Scene>();
         mPrimaryStage = primaryStage;
-        mPrimaryStage.setMinWidth(600);
-        mPrimaryStage.setMinHeight(400);
+        mPrimaryStage.setMinWidth(getStageWidth());
+        mPrimaryStage.setMinHeight(getStageHeight());
         primaryStage.setTitle("IVC Reporting");
         setPane(new StartPane(), true, false);
         primaryStage.show();
@@ -53,6 +53,8 @@ public class Main extends Application {
             mStack.push(scene);
         }
         mPrimaryStage.setScene(scene);
+        mPrimaryStage.setWidth(getStageWidth());
+        mPrimaryStage.setHeight(getStageHeight());
         pane.onPaneAppearing();
     }
 

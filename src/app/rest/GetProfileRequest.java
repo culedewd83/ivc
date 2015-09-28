@@ -2,6 +2,7 @@ package app.rest;
 
 import app.models.Profile;
 import app.utils.JsonHelper;
+import app.utils.ProfileUtils;
 import app.utils.TextEncryptor;
 
 import java.io.BufferedReader;
@@ -56,7 +57,7 @@ public class GetProfileRequest {
 
                     if (raw.data != null && raw.data.length() > 0) {
                         String json = TextEncryptor.decrypt(raw.data);
-                        response.profile = JsonHelper.getInstance().json.fromJson(json, Profile.class);
+                        response.profile = ProfileUtils.sanatize(JsonHelper.getInstance().json.fromJson(json, Profile.class));
                     }
 
                     if (callback != null) {
