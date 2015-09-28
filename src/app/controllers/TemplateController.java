@@ -386,16 +386,16 @@ public class TemplateController implements IBaseController, IResponse {
         backBtn.setDisable(true);
         saveBtn.setDisable(true);
 
-        assignments.setDisable(true);
-        cancellations.setDisable(true);
-        comments.setDisable(true);
-        className.setDisable(true);
-        facilitatorPresent.setDisable(true);
-        facilitiesIssues.setDisable(true);
-        name.setDisable(true);
-        origin.setDisable(true);
-        room.setDisable(true);
-        techIssues.setDisable(true);
+        assignments.setEditable(true);
+        cancellations.setEditable(true);
+        comments.setEditable(true);
+        className.setEditable(true);
+        facilitatorPresent.setEditable(true);
+        facilitiesIssues.setEditable(true);
+        name.setEditable(true);
+        origin.setEditable(true);
+        room.setEditable(true);
+        techIssues.setEditable(true);
 
         busyPane.setVisible(true);
     }
@@ -409,16 +409,16 @@ public class TemplateController implements IBaseController, IResponse {
         backBtn.setDisable(false);
         saveBtn.setDisable(!needSave);
 
-        assignments.setDisable(false);
-        cancellations.setDisable(false);
-        comments.setDisable(false);
-        className.setDisable(false);
-        facilitatorPresent.setDisable(false);
-        facilitiesIssues.setDisable(false);
-        name.setDisable(false);
-        origin.setDisable(false);
-        room.setDisable(false);
-        techIssues.setDisable(false);
+        assignments.setEditable(false);
+        cancellations.setEditable(false);
+        comments.setEditable(false);
+        className.setEditable(false);
+        facilitatorPresent.setEditable(false);
+        facilitiesIssues.setEditable(false);
+        name.setEditable(false);
+        origin.setEditable(false);
+        room.setEditable(false);
+        techIssues.setEditable(false);
 
         busyPane.setVisible(false);
     }

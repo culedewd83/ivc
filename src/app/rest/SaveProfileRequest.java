@@ -23,7 +23,7 @@ public class SaveProfileRequest {
                 BasicResponse response = new BasicResponse();
 
                 try {
-                    String baseUrl = "http://localhost:8080/save?data=" //"http://8.22.13.218:8080/create?data="
+                    String baseUrl = "http://8.22.13.218:8080/save?data="
                             + URLEncoder.encode(TextEncryptor
                             .encrypt(JsonHelper.getInstance()
                                     .json.toJson(profile)), "UTF-8");

@@ -22,7 +22,7 @@ public class CreateProfileRequest {
                 BasicResponse response = new BasicResponse();
 
                 try {
-                    String baseUrl = "http://localhost:8080/create?data=" //"http://8.22.13.218:8080/create?data="
+                    String baseUrl = "http://8.22.13.218:8080/create?data="
                             + URLEncoder.encode(TextEncryptor
                             .encrypt(JsonHelper.getInstance()
                                     .json.toJson(info)), "UTF-8");

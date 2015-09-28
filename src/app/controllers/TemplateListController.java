@@ -142,6 +142,15 @@ public class TemplateListController implements IBaseController, IResponse {
     }
 
     private void deleteTemplate() {
+        if (Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.size() <= 1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("Delete Error");
+            alert.setContentText("There must be at least one report template");
+            alert.showAndWait();
+            return;
+        }
+
         int groupIndex = Main.getInstance().getGroupIndex();
         int templateIndex = groupListView.getSelectionModel().getSelectedIndex();
         if (templateIndex >= 0) {

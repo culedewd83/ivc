@@ -22,7 +22,7 @@ public class GetProfileRequest {
                 ProfileResponse response = new ProfileResponse();
 
                 try {
-                    String baseUrl = "http://localhost:8080/get?data=" //"http://8.22.13.218:8080/get?data="
+                    String baseUrl = "http://8.22.13.218:8080/get?data="
                             + URLEncoder.encode(TextEncryptor.encrypt(key), "UTF-8");
 
                     URL url = new URL(baseUrl);

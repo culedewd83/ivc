@@ -12,6 +12,8 @@ import java.util.Stack;
 
 public class Main extends Application {
 
+    public static final String VERSION = "v1.0";
+
     private Stage mPrimaryStage;
     private static Main sInstance;
     private Stack<Scene> mStack;
@@ -90,7 +92,6 @@ public class Main extends Application {
     }
 
     public void setGroupIndex(int index) {
-        System.out.println("Group Index - old: " + mGroupIndex + "  new: " + index);
         mGroupIndex = index;
     }
 

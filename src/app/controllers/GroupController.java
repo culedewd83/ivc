@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.Main;
 import app.models.TemplateGroup;
+import app.panes.SendReportPane;
 import app.panes.StartPane;
 import app.panes.TemplateListPane;
 import app.rest.BasicResponse;
@@ -196,7 +197,7 @@ public class GroupController implements IBaseController, IResponse {
     }
 
     private void sendBtnClicked() {
-
+        Main.getInstance().setPane(new SendReportPane(), true, false);
     }
 
     private void editBtnClicked() {
