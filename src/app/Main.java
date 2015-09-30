@@ -53,8 +53,8 @@ public class Main extends Application {
             mStack.push(scene);
         }
         mPrimaryStage.setScene(scene);
-        mPrimaryStage.setWidth(getStageWidth());
-        mPrimaryStage.setHeight(getStageHeight());
+//        mPrimaryStage.setWidth(getStageWidth());
+//        mPrimaryStage.setHeight(getStageHeight());
         pane.onPaneAppearing();
     }
 
@@ -71,7 +71,7 @@ public class Main extends Application {
         if (mPrimaryStage.getScene() == null
                 || Double.isNaN(mPrimaryStage.getScene().getWidth())
                 || mPrimaryStage.getScene().getWidth() < 1.0) {
-            return 600.0;
+            return 800.0;
         }
         return mPrimaryStage.getScene().getWidth();
     }
@@ -80,7 +80,7 @@ public class Main extends Application {
         if (mPrimaryStage.getScene() == null
                 || Double.isNaN(mPrimaryStage.getScene().getHeight())
                 || mPrimaryStage.getScene().getHeight() < 1.0) {
-            return 400.0;
+            return 600.0;
         }
         return mPrimaryStage.getScene().getHeight();
     }

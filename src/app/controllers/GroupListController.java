@@ -184,7 +184,7 @@ public class GroupListController implements IBaseController, IResponse {
         template.facilitiesIssues = "None";
         template.comments = "None";
         template.instructor = "John Joe";
-        template.time = "5:00pm - 7:45pm";
+        template.time = "5:15pm - 7:45pm";
         group.templates.add(template);
 
         Main.getInstance().getProfile().groups.add(group);
