@@ -7,6 +7,8 @@ import app.utils.Copy;
 import app.utils.PasswordDialog;
 import email.Email;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -84,9 +87,13 @@ public class SendReportController implements IBaseController {
     @FXML
     TextField time;
 
+    @FXML
+    CheckBox includeCheckBox;
+
     private int mGroupIndex;
     private int mTemplateIndex = 0;
     private List<ReportTemplate> mTemplates;
+    private List<Boolean> mIcludes;
 
     @Override
     public void init() {
@@ -101,6 +108,11 @@ public class SendReportController implements IBaseController {
                 .getProfile()
                 .groups
                 .get(mGroupIndex)).templates;
+
+        mIcludes = new ArrayList<Boolean>();
+        for (int i = 0; i < mTemplates.size(); ++i) {
+            mIcludes.add(true);
+        }
 
         fillTextFields();
 
@@ -136,6 +148,13 @@ public class SendReportController implements IBaseController {
             }
         });
 
+        includeCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                mIcludes.set(mTemplateIndex, newValue);
+            }
+        });
+
         busyPane.toFront();
     }
 
@@ -152,6 +171,8 @@ public class SendReportController implements IBaseController {
         techIssues.setText(mTemplates.get(mTemplateIndex).techIssues);
         instructor.setText(mTemplates.get(mTemplateIndex).instructor);
         time.setText(mTemplates.get(mTemplateIndex).time);
+
+        includeCheckBox.setSelected(mIcludes.get(mTemplateIndex));
     }
 
     private void logoutBtnClicked() {
@@ -221,11 +242,6 @@ public class SendReportController implements IBaseController {
         fillTextFields();
     }
 
-    private class Haha extends TextInputDialog {
-
-
-    }
-
     private void sendReport() {
         PasswordDialog dialog = new PasswordDialog();
         dialog.setTitle("Send Report");
@@ -276,7 +292,12 @@ public class SendReportController implements IBaseController {
         sb.append("Facilitator: ").append(Main.getInstance().getProfile().name).append("\n");
         sb.append("Date: ").append(new SimpleDateFormat("MM/dd/yyyy").format(new Date())).append("\n\n") ;
 
-        for (ReportTemplate report : mTemplates) {
+        for (int i = 0; i < mTemplates.size(); ++ i) {
+            if (!mIcludes.get(i)) {
+                continue;
+            }
+
+            ReportTemplate report = mTemplates.get(i);
             sb.append("Class: ").append(report.course).append("\n");
             sb.append("Room #: ").append(report.room).append("\n");
             sb.append("Instructor: ").append(report.instructor).append("\n");

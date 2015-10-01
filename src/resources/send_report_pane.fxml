@@ -90,7 +90,7 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <ScrollPane fx:id="scrollPane" layoutX="200.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="108.0">
+      <ScrollPane fx:id="scrollPane" layoutX="200.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="108.0">
          <content>
             <GridPane fx:id="gridPane">
               <columnConstraints>
@@ -187,5 +187,6 @@
             </GridPane>
          </content>
       </ScrollPane>
+      <CheckBox fx:id="includeCheckBox" mnemonicParsing="false" selected="true" text="Include in Report" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="50.0" />
     </children>
 </AnchorPane>
