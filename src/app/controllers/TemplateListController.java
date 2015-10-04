@@ -199,6 +199,8 @@ public class TemplateListController implements IBaseController, IResponse {
         template.assignmentsQuizzesExams = "None";
         template.facilitiesIssues = "None";
         template.comments = "None";
+        template.instructor = "John Doe";
+        template.time = "5:15pm - 7:45pm";
 
         Main.getInstance().getProfile().groups.get(Main.getInstance().getGroupIndex()).templates.add(template);
         Main.getInstance().setTemplateIndex(Main.getInstance()
